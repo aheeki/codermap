@@ -14,6 +14,10 @@ angular.module('gservice', [])
     // Array of locations obtained from API calls
     var locations = [];
 
+    // Variables we'll use to help us pan to the right spot
+    var lastMarker;
+    var currentSelectedMarker;
+
     // Selected Location (initialize to center of America)
     var selectedLat = 39.50;
     var selectedLong = -98.35;
@@ -79,21 +83,31 @@ angular.module('gservice', [])
         '</p>';
 
         // Converts each of the JSON records into Google Maps Location format (Note [Lat, Lng] format).
-        locations.push({
-          latlon: new google.maps.LatLng(user.location[1], user.location[0]),
-          message: new google.maps.InfoWindow({
+        locations.push(new Location(
+          new google.maps.LatLng(user.location[1], user.location[0]),
+          new google.maps.InfoWindow({
             content: contentString,
             maxWidth: 320
           }),
-          username: user.username,
-          gender: user.gender,
-          age: user.age,
-          favlang: user.favlang
-        });
+          user.username,
+          user.gender,
+          user.age,
+          user.favlang
+        ))
       }
       // location is now an array populated with records in Google Maps format
       return locations;
     };
+
+    // Constructor for generic location
+    var Location = function(latlon, message, username, gender, age, favlang){
+      this.latlon = latlon;
+      this.message = message;
+      this.username = username;
+      this.gender = gender;
+      this.age = age;
+      this.favlang = favlang
+    };    
 
 
     // Initializes the map

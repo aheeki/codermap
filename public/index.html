@@ -5,13 +5,11 @@
   <head>
     <meta charset="utf-8">
     <title>CoderMap</title>
-    <meta name="description" content="An example demonstrating Google Map integration with MEAN Apps">
+    <meta name="description" content="see who's working on what where">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSS -->
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="style.css"/>
-    <!-- Holder JS -->
-    <script src="../bower_components/holderjs/holder.js"></script>
     <!-- Google Maps API -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4ZkWi6k9a8Ji1U1hiLf5pegCDV3sakaw"></script>
     <!-- Modernizr -->
@@ -26,18 +24,19 @@
     <script src="js/gservice.js"></script>
     <script src="js/addCtrl.js"></script>
     <script src="js/queryCtrl.js"></script>
+    <script src="js/headerCtrl.js"></script>
   </head>
 
   <body>
-    <div class="container">
+    <div class="container" ng-controller="headerCtrl">
 
       <!-- Header Nav Bar -->
       <div class="header">
         <ul class="nav nav-pills pull-right">
-          <li active><a href="/#/join">Join the Team</a></li>
-          <li disabled><a href="/#/find">Find Teammates</a></li>
+          <li ng-class="{ active: isActive('/join')}"><a href="/#/join">Join the Team</a></li>
+          <li ng-class="{ active: isActive('/find')}"><a href="/#/find">Find Teammates</a></li>
         </ul>
-        <h3 class="text-muted">The Scotch MEAN MapApp</h3>
+        <h3 class="text-muted">codermap</h3>
       </div>
 
       <!-- Map and Side Panel -->

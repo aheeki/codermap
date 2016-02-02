@@ -1,5 +1,5 @@
 // Declares the initial angular module "codermap". Module grabs other controllers and services.
-var app = angular.module('coderMap', ['addCtrl', 'queryCtrl', 'geolocation', 'gservice', 'ngRoute']);
+var app = angular.module('coderMap', ['addCtrl', 'queryCtrl', 'headerCtrl', 'geolocation', 'gservice', 'ngRoute']);
 
 // Configures Angular routing -- showing the relevant view and controller when needed.
 app.config(function($routeProvider){

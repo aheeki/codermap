@@ -44,6 +44,19 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
     });
   });
 
+
+  // Function for refreshing the HTML5 verified location (used by refresh button)
+  $scope.refreshLoc = function(){
+    geolocation.getLocation().then(function(data){
+      coords = {lat:data.coords.latitude, long:data.coords.longitude};
+
+      $scope.formData.longitude = parseFloat(coords.long).toFixed(3);
+      $scope.formData.latitude = parseFloat(coords.lat).toFixed(3);
+      $scope.formData.htmlverified = "Yep (Thanks for giving us real data!)";
+      gservice.refresh(coords.lat, coords.long);
+    });
+  };  
+
   // Creates a new user based on the form fields
   $scope.createUser = function() {
 
