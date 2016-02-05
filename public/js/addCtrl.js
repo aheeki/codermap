@@ -1,9 +1,11 @@
 // Creates the addCtrl Module and Controller. Note that it depends on the 'geolocation' module and service.
-var addCtrl = angular.module('addCtrl', ['geolocation', 'gservice']);
+var addCtrl = angular.module('addCtrl', ['geolocation', 'gservice', 'google.places']);
 addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, gservice){
 
   // Initializes Variables
   // ----------------------------------------------------------------------------
+  $scope.place = null;
+
   $scope.formData = {};
   var coords = {};
   var lat = 0;

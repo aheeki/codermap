@@ -53,7 +53,7 @@ body {
 /* Google Map! */
 #map {
     height: 645px;
-    width: 645px;
+    width: auto;
 }
 
 /* Responsive: Portrait tablets and up */
