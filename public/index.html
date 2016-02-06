@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="style.css"/>
     <link rel="stylesheet" href="/bower_components/angular-google-places-autocomplete/src/autocomplete.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- Google Maps and Places API -->
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyC4ZkWi6k9a8Ji1U1hiLf5pegCDV3sakaw"></script>
     <!-- Modernizr -->
@@ -34,32 +35,33 @@
     <div class="container-fluid" ng-controller="headerCtrl">
 
       <!-- Header Nav Bar -->
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li ng-class="{ active: isActive('/join')}"><a href="/#/join">Join the Team</a></li>
-          <li ng-class="{ active: isActive('/find')}"><a href="/#/find">Find Teammates</a></li>
-        </ul>
+<!--       <div class="header">
         <h3 class="text-muted">codermap</h3>
-      </div>
+      </div> -->
+      <h3 class="text-muted">codermap</h3>
 
       <!-- Google Map -->
       <div class="row content">
-        <div class="col-sm-4"></div>
+        <div class="col-sm-5">
+
+          <ul class="nav nav-tabs nav-justified">
+            <li role="presentation" ng-class="{ active: isActive('/join')}"><a href="/#/join">I'm Coding Now</a></li>
+            <li role="presentation" ng-class="{ active: isActive('/find')}"><a href="/#/find">People Coding Nearby</a></li>
+          </ul>
+          
+          <!-- Panel -->        
+          <div ng-view></div>
+          
+        </div>
         <div id="map"></div>
       </div>
 
-      <!-- Side Panel -->      
-      <div class="row content">
-        <div ng-view></div>
-      </div>
 
       <hr/>
 
       <!-- Footer -->
       <div class="footer">
-        <p class="text-center"><span class="glyphicon glyphicon-check"></span> Created by Ahmed Haque for Scotch IO -
-          <a href="https://scotch.io/">App Tutorial</a> | <a href="https://github.com/afhaque/MeanMapAppV2.0">Github Repo</a>
-        </p>
+        <p class="text-center"><span class="glyphicons glyphicons-map"></span>codermap</p>
       </div>
 
     </div>
