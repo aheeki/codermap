@@ -4,7 +4,9 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
 
   // Initializes Variables
   // ----------------------------------------------------------------------------
-  $scope.place = null;
+
+  // autocomplete place var bound to addCtrl scope
+  $scope.place = '';
 
   $scope.formData = {};
   var coords = {};
@@ -12,11 +14,24 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
   var long = 0;
 
   // Set initial coordinates to the center of the US
+  // Do i really need this?
   $scope.formData.latitude = 39.500;
   $scope.formData.longitude = -98.350;
 
   // Functions
   // ----------------------------------------------------------------------------
+
+  // Update user's location based on Google places API
+  $scope.$watch('place', function() {
+    if ( $scope.place.hasOwnProperty('geometry') ) {
+      // v hacky here, but the $scope.place.geometry.location.lat property was a function somehow, not a number
+      // converting the object to a json string then back to an object fixed the issue
+      tempLoc = angular.fromJson(angular.toJson($scope.place));
+      $scope.formData.latitude = tempLoc.geometry.location.lat;
+      $scope.formData.longitude = tempLoc.geometry.location.lng;
+      gservice.refresh($scope.formData.latitude, $scope.formData.longitude);
+    }
+  });
 
   // Get User's actual coordinates based on HTML5 at window load
   geolocation.getLocation().then(function(data){
