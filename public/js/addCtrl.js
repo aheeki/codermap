@@ -1,6 +1,6 @@
 // Creates the addCtrl Module and Controller. Note that it depends on the 'geolocation' module and service.
 var addCtrl = angular.module('addCtrl', ['geolocation', 'gservice', 'google.places']);
-addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, gservice){
+addCtrl.controller('addCtrl', function($scope, $http, geolocation, gservice){
 
   // Initializes Variables
   // ----------------------------------------------------------------------------
@@ -13,11 +13,6 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
   var lat = 0;
   var long = 0;
 
-  // Set initial coordinates to the center of the US
-  // Do i really need this?
-  $scope.formData.latitude = 39.500;
-  $scope.formData.longitude = -98.350;
-
   // Functions
   // ----------------------------------------------------------------------------
 
@@ -27,64 +22,28 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
       // v hacky here, but the $scope.place.geometry.location.lat property was a function somehow, not a number
       // converting the object to a json string then back to an object fixed the issue
       tempLoc = angular.fromJson(angular.toJson($scope.place));
-      $scope.formData.latitude = tempLoc.geometry.location.lat;
-      $scope.formData.longitude = tempLoc.geometry.location.lng;
-      gservice.refresh($scope.formData.latitude, $scope.formData.longitude);
+      gservice.refresh(tempLoc.geometry.location.lat, tempLoc.geometry.location.lng);
     }
   });
 
   // Get User's actual coordinates based on HTML5 at window load
   geolocation.getLocation().then(function(data){
-
     // Set the latitude and longitude equal to the HTML5 coordinates
     coords = {lat:data.coords.latitude, long:data.coords.longitude};
-
-    // Display coordinates in location textboxes rounded to three decimal points
-    $scope.formData.longitude = parseFloat(coords.long).toFixed(3);
-    $scope.formData.latitude = parseFloat(coords.lat).toFixed(3);
-
-    // Display message confirming that the coordinates verified.
-    $scope.formData.htmlverified = "Yep (Thanks for giving us real data!)";
-
-    gservice.refresh($scope.formData.latitude, $scope.formData.longitude);
-
+    gservice.refresh(parseFloat(coords.lat).toFixed(3), parseFloat(coords.long).toFixed(3));
   });
-  
-  // Get coordinates based on mouse click. When a click event is detected....
-  $rootScope.$on("clicked", function(){
-
-    // Run the gservice functions associated with identifying coordinates
-    $scope.$apply(function(){
-      $scope.formData.latitude = parseFloat(gservice.clickLat).toFixed(3);
-      $scope.formData.longitude = parseFloat(gservice.clickLong).toFixed(3);
-      $scope.formData.htmlverified = "Nope (Thanks for spamming my map...)";
-    });
-  });
-
-
-  // Function for refreshing the HTML5 verified location (used by refresh button)
-  $scope.refreshLoc = function(){
-    geolocation.getLocation().then(function(data){
-      coords = {lat:data.coords.latitude, long:data.coords.longitude};
-
-      $scope.formData.longitude = parseFloat(coords.long).toFixed(3);
-      $scope.formData.latitude = parseFloat(coords.lat).toFixed(3);
-      $scope.formData.htmlverified = "Yep (Thanks for giving us real data!)";
-      gservice.refresh(coords.lat, coords.long);
-    });
-  };  
 
   // Creates a new user based on the form fields
   $scope.createUser = function() {
 
     // Grabs all of the text box fields
     var userData = {
+      place: angular.toJson($scope.place),
+      when: $scope.formData.when,
       username: $scope.formData.username,
-      gender: $scope.formData.gender,
-      age: $scope.formData.age,
-      favlang: $scope.formData.favlang,
-      location: [$scope.formData.longitude, $scope.formData.latitude],
-      htmlverified: $scope.formData.htmlverified
+      projet: $scope.formData.project,
+      language: $scope.formData.lang,
+      github: $scope.formData.github
     };
 
     // Saves the user data to the db
@@ -92,14 +51,15 @@ addCtrl.controller('addCtrl', function($scope, $http, $rootScope, geolocation, g
       .success(function (data) {
 
         // Once complete, clear the form (except location)
+        $scope.formData.when = "";
         $scope.formData.username = "";
-        $scope.formData.gender = "";
-        $scope.formData.age = "";
-        $scope.formData.favlang = "";
+        $scope.formData.project = "";
+        $scope.formData.lang = "";
+        $scope.formData.github = "";
 
         // Refresh the map with new data
-        gservice.refresh($scope.formData.latitude, $scope.formData.longitude);
-          
+        tempLoc = angular.fromJson(angular.toJson($scope.place));
+        gservice.refresh(tempLoc.geometry.location.lat, tempLoc.geometry.location.lng);          
       })
       .error(function (data) {
         console.log('Error: ' + data);
