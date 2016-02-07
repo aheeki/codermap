@@ -99,8 +99,9 @@ angular.module('gservice', [])
     };
 
     // Constructor for generic location
-    var Location = function(latlon, username, when, project, languages){
+    var Location = function(latlon, message, username, when, project, languages){
       this.latlon = latlon;
+      this.message = message;
       this.username = username;
       this.when = when;
       this.project = project;
