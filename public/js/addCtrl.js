@@ -36,25 +36,26 @@ addCtrl.controller('addCtrl', function($scope, $http, geolocation, gservice){
   // Creates a new user based on the form fields
   $scope.createUser = function() {
 
-    // Grabs all of the text box fields
+    // Grabs all of the text box 
+    tempLoc = angular.fromJson(angular.toJson($scope.place));
     var userData = {
+      location: [tempLoc.geometry.location.lng, tempLoc.geometry.location.lat],
       place: angular.toJson($scope.place),
       when: $scope.formData.when,
       username: $scope.formData.username,
-      projet: $scope.formData.project,
-      language: $scope.formData.lang,
+      project: $scope.formData.project,
+      languages: $scope.formData.languages,
       github: $scope.formData.github
     };
-
     // Saves the user data to the db
     $http.post('/users', userData)
       .success(function (data) {
-
         // Once complete, clear the form (except location)
+        console.log(data);
         $scope.formData.when = "";
         $scope.formData.username = "";
         $scope.formData.project = "";
-        $scope.formData.lang = "";
+        $scope.formData.languages = "";
         $scope.formData.github = "";
 
         // Refresh the map with new data

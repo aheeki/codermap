@@ -4,13 +4,13 @@ var Schema = mongoose.Schema;
 
 // Creates a User Schema. This will be the basis of how user data is stored in the db
 var UserSchema = new Schema({
+  location: {type: [Number], required: true},
   place: {type: String, required: true},
   when: {type: String, required: true},
   username: {type: String, required: true},
   project: {type: String, required: true},
-  language: {type: String, required: true},
+  languages: {type: String, required: true},
   github: {type: String, required: true},
-  favlang: {type: String, required: true},
   created_at: {type: Date, default: Date.now},
   updated_at: {type: Date, default: Date.now}
 });
@@ -28,5 +28,5 @@ UserSchema.pre('save', function(next){
 // Indexes this schema in 2dsphere format (critical for running proximity searches)
 UserSchema.index({location: '2dsphere'});
 
-// Exports the UserSchema for use elsewhere. Sets the MongoDB collection to be used as: "scotch-users"
-module.exports = mongoose.model('scotch-user', UserSchema);
+// Exports the UserSchema for use elsewhere. Sets the MongoDB collection to be used as: "codermap-users"
+module.exports = mongoose.model('codermap-user', UserSchema);
