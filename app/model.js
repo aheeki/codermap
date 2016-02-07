@@ -29,4 +29,4 @@ UserSchema.pre('save', function(next){
 UserSchema.index({location: '2dsphere'});
 
 // Exports the UserSchema for use elsewhere. Sets the MongoDB collection to be used as: "codermap-users"
-module.exports = mongoose.model('codermap-user', UserSchema);
+module.exports = mongoose.model('codermapuser', UserSchema);
