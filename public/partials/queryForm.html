@@ -2,10 +2,14 @@
 <form name ="queryForm">
 
   <!-- Text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
-  <div class="form-group">
-    <label for="distance">Max. Distance (miles)</label>
-    <input type="text" class="form-control" id="distance" placeholder="500" ng-model="formData.distance">
+  <div class="btn-group" id="distance" role="group" aria-label="...">
+    <button type="button" ng-model="formData.distance" uib-btn-radio="15" class="btn btn-default">Near</button>
+    <button type="button" ng-model="formData.distance" uib-btn-radio="100" class="btn btn-default">Far</button>
+    <button type="button" ng-model="formData.distance" uib-btn-radio="2000" class="btn btn-default">All</button>
   </div>
+
   <!-- Query button. Note that its tied to queryUsers() function from queryCtrl.  -->
   <button type="submit" class="btn btn-danger btn-block" ng-click="queryUsers()">Search</button>
 </form>
+
+
