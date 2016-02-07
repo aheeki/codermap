@@ -6,25 +6,23 @@
   </div>
   <div class="form-group form-inline">
     <i class="fa fa-2x fa-calendar"></i>    
-    <input style="width:90%" class="form-control" id="when" ng-model="formData.when" placeholder="When will you be there? (ie, tomorrow around 4pm, today at noon...)" required>
+    <input style="width:90%" class="form-control" id="when" ng-model="formData.when" placeholder="When will you be there? (ie, tomorrow around 4pm, today at noon...)" autocomplete="off" required>
   </div>  
   <div class="form-group form-inline">
     <i class="fa fa-2x fa-user"></i>
-    <input style="width:90%" type="text" class="form-control" id="username" placeholder="Who are you? (name, nickname, etc.)" ng-model="formData.username" required>
+    <input style="width:90%" type="text" class="form-control" id="username" placeholder="Who are you? (name, nickname, etc.)" ng-model="formData.username" autocomplete="off" required>
   </div>
   <div class="form-group form-inline">
     <i class="fa fa-2x fa-tag"></i>
-    <input style="width:90%" type="text" class="form-control" id="project" placeholder="Project Name and Description" ng-model="formData.project"
-    required>
+    <input style="width:90%" type="text" class="form-control" id="project" placeholder="Project Name and Description" ng-model="formData.project" autocomplete="off" required>
   </div>  
   <div class="form-group form-inline">
     <i class="fa fa-2x fa-code"></i>
-    <input style="width:90%" type="text" class="form-control" id="languages" placeholder="Languages you're using" ng-model="formData.languages"
-    required>
+    <input style="width:90%" type="text" class="form-control" id="languages" placeholder="Languages you're using" ng-model="formData.languages" autocomplete="off" required>
   </div>
   <div class="form-group form-inline">
     <i class="fa fa-2x fa-github"></i>
-    <input style="width:90%" type="text" class="form-control" id="github" placeholder="Link to Github Repo (optional)" ng-model="formData.github">
+    <input style="width:90%" type="text" class="form-control" id="github" placeholder="Link to Github Repo (optional)" ng-model="formData.github" autocomplete="off">
   </div>  
   <!-- Submit button. Note that its tied to createUser() function from addCtrl. Also note ng-disabled logic which prevents early submits.  -->
   <button type="submit" class="btn btn-danger btn-block" ng-click="createUser()" ng-disabled="addForm.$invalid">Submit</button>
