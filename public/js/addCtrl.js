@@ -18,7 +18,7 @@ addCtrl.controller('addCtrl', function($scope, $http, geolocation, gservice){
 
   // Update user's location based on Google places API
   $scope.$watch('place', function() {
-    if ( $scope.place.hasOwnProperty('geometry') ) {
+    if ( angular.isDefined($scope.place.geometry) ) {
       // v hacky here, but the $scope.place.geometry.location.lat property was a function somehow, not a number
       // converting the object to a json string then back to an object fixed the issue
       tempLoc = angular.fromJson(angular.toJson($scope.place));

@@ -31,7 +31,6 @@ queryCtrl.controller('queryCtrl', function($scope, $log, $http, $rootScope, geol
 
   // Take query parameters and incorporate into a JSON queryBody
   $scope.queryUsers = function(){
-    console.log($scope.formData.distance);
     // Assemble Query Body
     queryBody = {
       longitude: parseFloat($scope.longitude),
