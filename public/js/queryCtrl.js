@@ -20,15 +20,6 @@ queryCtrl.controller('queryCtrl', function($scope, $log, $http, $rootScope, geol
     gservice.refresh($scope.latitude, $scope.longitude);
   });
 
-  // Get coordinates based on mouse click. When a click event is detected....
-  $rootScope.$on("clicked", function(){
-    // Run the gservice functions associated with identifying coordinates
-    $scope.$apply(function(){
-      $scope.latitude = parseFloat(gservice.clickLat).toFixed(3);
-      $scope.longitude = parseFloat(gservice.clickLong).toFixed(3);
-    });
-  });
-
   // Take query parameters and incorporate into a JSON queryBody
   $scope.queryUsers = function(){
     // Assemble Query Body
@@ -44,8 +35,7 @@ queryCtrl.controller('queryCtrl', function($scope, $log, $http, $rootScope, geol
       .success(function(queryResults){
         // Pass the filtered results to the Google Map Service and refresh the map
         gservice.refresh(queryBody.latitude, queryBody.longitude, queryResults);
-        // Count the number of records retrieved for the panel-footer
-        $scope.queryCount = queryResults.length;
+        $scope.queryResults = queryResults;
       })
       .error(function(queryResults){
         console.log('Error ' + queryResults);

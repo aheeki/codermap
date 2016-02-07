@@ -7,8 +7,9 @@
 </form>
 
 
-<div class="panel panel-default">
+<div ng-repeat="coder in queryResults track by $index" class="panel panel-default">
   <div class="panel-body">
-    Basic panel example
+    {{ coder.username }}
+    {{ coder.place }}
   </div>
 </div>
