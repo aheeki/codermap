@@ -113,7 +113,7 @@ angular.module('gservice', [])
     var initialize = function(latitude, longitude, filter) {
 
       // Uses the selected lat, long as starting point
-      var myLatLng = {lat: selectedLat, lng: selectedLong};
+      var myLatLng = new google.maps.LatLng(selectedLong, selectedLat);
 
       // If map has not been created...
       if (!map){
