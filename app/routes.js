@@ -46,13 +46,6 @@ module.exports = function(app) {
     var lat             = req.body.latitude;
     var long            = req.body.longitude;
     var distance        = req.body.distance;
-    var male            = req.body.male;
-    var female          = req.body.female;
-    var other           = req.body.other;
-    var minAge          = req.body.minAge;
-    var maxAge          = req.body.maxAge;
-    var favLang         = req.body.favlang;
-    var reqVerified     = req.body.reqVerified;
 
     // Opens a generic Mongoose Query. Depending on the post body we will...
     var query = User.find({});
@@ -65,30 +58,19 @@ module.exports = function(app) {
         maxDistance: distance * 1609.34, spherical: true});
     }
 
-    // ...include filter by Gender (all options)
-    if(male || female || other){
-      query.or([{ 'gender': male }, { 'gender': female }, {'gender': other}]);
-    }
-
-    // ...include filter by Min Age
-    if(minAge){
-      query = query.where('age').gte(minAge);
-    }
-
-    // ...include filter by Max Age
-    if(maxAge){
-      query = query.where('age').lte(maxAge);
-    }
-
-    // ...include filter by Favorite Language
-    if(favLang){
-      query = query.where('favlang').equals(favLang);
-    }
-
-    // ...include filter for HTML5 Verified Locations
-    if(reqVerified){
-      query = query.where('htmlverified').equals("Yep (Thanks for giving us real data!)");
-    }
+    // sample query filters
+    // if(male || female || other){
+    //   query.or([{ 'gender': male }, { 'gender': female }, {'gender': other}]);
+    // }
+    // if(minAge){
+    //   query = query.where('age').gte(minAge);
+    // }
+    // if(maxAge){
+    //   query = query.where('age').lte(maxAge);
+    // }
+    // if(favLang){
+    //   query = query.where('favlang').equals(favLang);
+    // }
 
     // Execute Query and Return the Query Results
     query.exec(function(err, users){
